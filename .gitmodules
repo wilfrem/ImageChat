@@ -1,0 +1,3 @@
+[submodule "SharpDaemon"]
+	path = SharpDaemon
+	url = https://github.com/wilfrem/SharpDaemon
