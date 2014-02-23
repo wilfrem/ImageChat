@@ -64,42 +64,45 @@ namespace ImageChat
 
             var path = context.Request.Path;
 
+            var accept = context.Get<WebSocketAccept>("websocket.Accept");
+            if (accept != null)
+            {
+                accept(null, WebSocketChat);
+                return;
+            }
+            
             PathString remainingPath;
             if (!path.StartsWithSegments(_pathString, out remainingPath))
             {
                 await _next(environment);
                 return;
             }
-            var accept = context.Get<WebSocketAccept>("websocket.Accept");
-            if (accept == null)
+            if (remainingPath.StartsWithSegments(new PathString("/god")))
             {
-                if (remainingPath.StartsWithSegments(new PathString("/god")))
+                context.Response.Headers.Add("Content-type", new[] {"text/plain; charset=utf-8"});
+                var text = context.Request.Query.Get("text");
+                if (text != null)
                 {
-                    context.Response.Headers.Add("Content-type", new[] {"text/plain; charset=utf-8"});
-                    var text = context.Request.Query.Get("text");
-                    if (text != null)
-                    {
-                        var jsonData =
-                            JsonConvert.SerializeObject(new ChatText
-                            {
-                                IsGod = true,
-                                Color = "#FF0000",
-                                Text = "神は言っている、" + text + " と"
-                            });
-                        _notifyAll.OnNext(new ChatEchoData(jsonData, 1, true));
-                        await context.Response.WriteAsync("神は言っている、 送信が完了したと");
-                        return;
-                    }
-                    await context.Response.WriteAsync("そんなクエリで大丈夫か\ntext=[メッセージ]で頼む");
+                    var jsonData =
+                        JsonConvert.SerializeObject(new ChatText
+                        {
+                            IsGod = true,
+                            Color = "#FF0000",
+                            Text = "神は言っている、" + text + " と"
+                        });
+                    _notifyAll.OnNext(new ChatEchoData(jsonData, 1, true));
+                    await context.Response.WriteAsync("神は言っている、 送信が完了したと");
                     return;
                 }
-                //ページを表示
-                context.Response.Headers.Add("Content-type", new[] {"text/html; charset=utf-8"});
-                await context.Response.WriteAsync(_templateService.Display("Room.cshtml", _room, null, null));
+                await context.Response.WriteAsync("そんなクエリで大丈夫か\ntext=[メッセージ]で頼む");
                 return;
             }
-            accept(null, WebSocketChat);
+            //ページを表示
+            context.Response.Headers.Add("Content-type", new[] {"text/html; charset=utf-8"});
+            await context.Response.WriteAsync(_templateService.Display("Room.cshtml", _room, null, null));
         }
+
+
 
         private async Task WebSocketChat(IDictionary<string, object> websocketContext)
         {

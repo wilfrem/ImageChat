@@ -20,7 +20,7 @@
                 var ws = new window.WebSocket("ws://@(Model.Host)/room");
                 ws.onerror = function () { $("#console").prepend("接続失敗"); };
                 ws.onmessage = function (e) { write(e.data); };
-
+                ws.onclose = function (e) { $("#console").prepend("接続が終了しました。コード: " + e.code + " 理由: " + e.reason); };
                 var sendText = function () {
                     var text = $("#chat").val();
                     var color = $("#color").val();

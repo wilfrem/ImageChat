@@ -29,12 +29,12 @@ namespace ImageChat
             }
             else
             {
-                url = "http://+:" + port;
-                Host = Dns.GetHostName() + ":port";
+                url = "http://"+Dns.GetHostName()+":" + port;
+                Host = Dns.GetHostName() + ":" + port;
             }
             using (WebApp.Start<Startup>(url))
             {
-                Console.WriteLine("Server started at " + port);
+                Console.WriteLine("Server started at " + url);
                 try
                 {
                     Daemon.Instance.WaitForUnixSignal();
