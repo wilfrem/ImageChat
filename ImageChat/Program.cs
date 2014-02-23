@@ -10,6 +10,8 @@ namespace ImageChat
 {
     class Program
     {
+        public const string Host = "localhost:12121";
+        
         static void Main(string[] args)
         {
             int port;

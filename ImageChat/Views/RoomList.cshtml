@@ -1,7 +1,19 @@
-﻿<h2>部屋一覧</h2>
-<ul>
-    @foreach (var room in Model)
-    {
-        <li>@room.Name</li>
-    }
-</ul>
+﻿<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - ImageChat</title>
+    </head>
+    <body>
+        <div>
+            <h2>部屋一覧</h2>
+            <ul>
+                @foreach (var room in Model)
+                {
+                    <li>@room.Name</li>
+                }
+            </ul>
+        </div>
+    </body>
+</html>
