@@ -8,13 +8,23 @@ namespace ImageChat
 {
     public class Room
     {
-        public string Name { get; private set; }
+        /// <summary>
+        /// リンク先ホスト名
+        /// </summary>
+        public string Host { get; private set; }
+        /// <summary>
+        /// 画像ファイル
+        /// </summary>
         public string ImageUrl { get; private set; }
-
-        public Room(string name, string imageUrl)
+        /// <summary>
+        /// チャット一覧
+        /// </summary>
+        public Queue<ChatText> Texts { get; private set; }
+        public Room(string host, string imageUrl)
         {
-            Name = name;
+            Host = host;
             ImageUrl = imageUrl;
+            Texts = new Queue<ChatText>();
         }
     }
 }

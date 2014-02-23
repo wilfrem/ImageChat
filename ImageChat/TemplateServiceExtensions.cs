@@ -9,12 +9,6 @@ namespace ImageChat
 {
     static class TemplateServiceExtensions
     {
-        /*const string BaseTemplate = "Shared/_Layout.cshtml";
-        public static string DisplayWithBase<T>(this TemplateService service, string templatePath, T model, DynamicViewBag viewBag, string cacheName)
-        {
-            templatePath ="~/Views/"+templatePath;
-            return service.Display(BaseTemplate, new { Path = templatePath, Model = model }, viewBag, cacheName);
-        }*/
         public static string Display<T>(this TemplateService service, string templatePath, T model, DynamicViewBag viewBag, string cacheName)
         {
             var template = TemplateLoader.Load(templatePath);

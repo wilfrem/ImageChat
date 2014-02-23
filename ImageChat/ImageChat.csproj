@@ -99,13 +99,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatEchoData.cs" />
+    <Compile Include="ChatText.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomExtensions.cs" />
-    <Compile Include="RoomListView.cs" />
     <Compile Include="RoomMiddleware.cs" />
-    <Compile Include="RoomView.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TemplateLoader.cs" />
     <Compile Include="TemplateServiceExtensions.cs" />
@@ -116,16 +116,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="Views\Room.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\RoomList.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </None>
-    <None Include="Views\RoomNew.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Shared\_Layout.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\Web.config" />

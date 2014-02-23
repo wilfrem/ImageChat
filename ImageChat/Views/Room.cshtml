@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model ImageChat.Room
+
+<!DOCTYPE html>
 <html lang="ja">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,7 +13,8 @@
                     var data = JSON.parse(dataJson);
                     var escapedStr = $("<div />").text(data.Text).html();
                     var escapedColor = $("<div />").text(data.Color).html();
-                    $("#console").prepend("<li style='color:" + escapedColor + "'>" + escapedStr + "</li>");
+                    var style2 = data.IsGod ? "font-size: 300%;" : "";
+                    $("#console").prepend("<li style='color:" + escapedColor + ";" + style2 +"'>" + escapedStr + "</li>");
                 };
 
                 var ws = new window.WebSocket("ws://@(Model.Host)/room");
@@ -22,7 +25,7 @@
                     var text = $("#chat").val();
                     var color = $("#color").val();
                     if (text !== "") {
-                        ws.send(JSON.stringify({'Color': color, 'Text': text}));
+                        ws.send(JSON.stringify({'Color': color, 'Text': text, 'IsGod': false}));
                     }
                     $("#chat").val("");
                 };
@@ -43,9 +46,9 @@
             <h2>チャット部屋</h2>
             色: <input id="color" type="text" value="#000000" style="width:60px" />  内容: <input id="chat" type="text" style="width:80%" /><input type="button" id="submit" value="送信" /><br />
             <ul id="console">
-                @foreach (var chatText in @Model.Texts)
+                @foreach (var chatText in @Model.Texts.Reverse())
                 {
-                    <li style="color: @chatText.Color">@chatText.Text </li>
+                    <li style="color: @(chatText.Color);@(chatText.IsGod?"font-size: 300%;":"")">@chatText.Text </li>
                 }
             </ul>
         </div>
