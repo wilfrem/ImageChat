@@ -7,9 +7,10 @@ using RazorEngine.Templating;
 
 namespace ImageChat
 {
-    static class TemplateServiceExtensions
+    internal static class TemplateServiceExtensions
     {
-        public static string Display<T>(this TemplateService service, string templatePath, T model, DynamicViewBag viewBag, string cacheName)
+        public static string Display<T>(this TemplateService service, string templatePath, T model,
+            DynamicViewBag viewBag, string cacheName)
         {
             var template = TemplateLoader.Load(templatePath);
             return service.Parse(template, model, viewBag, cacheName);

@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - ImageChat</title>
+        <title>神付きチャット部屋 - ImageChat</title>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script type="text/javascript">
             $(function () {
@@ -18,7 +18,7 @@
                 };
 
                 var ws = new window.WebSocket("ws://@(Model.Host)/room");
-                ws.onerror = function (e) { $("#console").prepend("接続失敗"); };
+                ws.onerror = function () { $("#console").prepend("接続失敗"); };
                 ws.onmessage = function (e) { write(e.data); };
 
                 var sendText = function () {

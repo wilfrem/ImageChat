@@ -12,14 +12,17 @@ namespace ImageChat
         /// リンク先ホスト名
         /// </summary>
         public string Host { get; private set; }
+
         /// <summary>
         /// 画像ファイル
         /// </summary>
         public string ImageUrl { get; private set; }
+
         /// <summary>
         /// チャット一覧
         /// </summary>
         public Queue<ChatText> Texts { get; private set; }
+
         public Room(string host, string imageUrl)
         {
             Host = host;

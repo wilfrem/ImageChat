@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Daemonizer;
@@ -8,22 +9,29 @@ using Microsoft.Owin.Hosting;
 
 namespace ImageChat
 {
-    class Program
+    internal class Program
     {
-        public const string Host = "localhost:12121";
-        
-        static void Main(string[] args)
+        public static string Host { get; set; }
+
+        private static void Main(string[] args)
         {
             int port;
             if (args.Length == 0 || int.TryParse(args[0], out port))
             {
                 port = 12121;
             }
-#if DEBUG
-            var url = "http://localhost:" + port;
-#else
-            var url = "http://+:" + port;
-#endif
+            var platform = Environment.OSVersion.Platform;
+            string url;
+            if (platform != PlatformID.Unix && platform != PlatformID.MacOSX)
+            {
+                url = "http://localhost:" + port;
+                Host = "localhost:" + port;
+            }
+            else
+            {
+                url = "http://+:" + port;
+                Host = Dns.GetHostName() + ":port";
+            }
             using (WebApp.Start<Startup>(url))
             {
                 Console.WriteLine("Server started at " + port);
@@ -37,7 +45,6 @@ namespace ImageChat
                     Console.ReadLine();
                 }
             }
-
         }
     }
 }

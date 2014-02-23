@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using ImageChat;
 
 // ReSharper disable once CheckNamespace
+
 namespace Owin
 {
-    static class RoomExtensions
+    internal static class RoomExtensions
     {
         public static void UseRoom(this IAppBuilder builder, string path)
         {
-            builder.Use(typeof(RoomMiddleware), path);
+            builder.Use(typeof (RoomMiddleware), path);
         }
     }
 }

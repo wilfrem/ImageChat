@@ -75,11 +75,17 @@ namespace ImageChat
             {
                 if (remainingPath.StartsWithSegments(new PathString("/god")))
                 {
-                    context.Response.Headers.Add("Content-type", new[]{ "text/plain; charset=utf-8"});
+                    context.Response.Headers.Add("Content-type", new[] {"text/plain; charset=utf-8"});
                     var text = context.Request.Query.Get("text");
                     if (text != null)
                     {
-                        var jsonData = JsonConvert.SerializeObject(new ChatText{ IsGod = true, Color="#FF0000", Text="神は言っている、"+text+" と"});
+                        var jsonData =
+                            JsonConvert.SerializeObject(new ChatText
+                            {
+                                IsGod = true,
+                                Color = "#FF0000",
+                                Text = "神は言っている、" + text + " と"
+                            });
                         _notifyAll.OnNext(new ChatEchoData(jsonData, 1, true));
                         await context.Response.WriteAsync("神は言っている、 送信が完了したと");
                         return;
@@ -104,7 +110,7 @@ namespace ImageChat
 
             var buffer = new byte[4096];
 
-            var disposable = _notifyAll.Subscribe(async (message) =>
+            var disposable = _notifyAll.Subscribe(async message =>
             {
                 var data = Encoding.UTF8.GetBytes(message.Text);
                 await

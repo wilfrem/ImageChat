@@ -11,7 +11,6 @@ namespace ImageChat
     {
         public void Configuration(IAppBuilder app)
         {
-            
 #if DEBUG
             app.UseErrorPage();
 #endif
